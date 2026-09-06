@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"harnesses": {
+		"claude": {
+			"reconciledWith": "0.11.0"
+		}
+	},
+	"code": {
+		"backend": "github",
+		"owner": "AICrafting",
+		"repo": ".github",
+		"api": "https://api.github.com",
+		"stages": [
+			{
+				"name": "main",
+				"merge": "pr",
+				"gate": "pre-merge",
+				"issueStatus": "done"
+			}
+		],
+		"queueBatches": {
+			"defaultModel": "opus"
+		}
+	},
+	"labels": {
+		"status": {
+			"in-progress": "status/in progress",
+			"to-test": "status/to test",
+			"blocked": "status/blocked",
+			"deferred": "status/deferred",
+			"review": "status/review",
+			"qa": "status/qa",
+			"done": "status/done"
+		},
+		"model": {
+			"opus": "model/opus",
+			"sonnet": "model/sonnet",
+			"haiku": "model/haiku",
+			"fable": "model/fable"
+		}
+	}
+}

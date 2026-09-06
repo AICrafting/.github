@@ -1,0 +1,10 @@
+# flight (Flight Director) local state
+.flightdirector/secrets.json
+.flightdirector/batches/
+.worktrees/
+
+# Claude Code prompt log
+prompt_log.jsonl
+
+# VS Code Settings
+.vscode/settings.json
