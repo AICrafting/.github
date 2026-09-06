@@ -20,7 +20,7 @@ Every commit must carry a valid signature. Enforced in two places:
   trusted is still a valid signature; GitHub's own merge commits show as `U` until
   you trust its web-flow key.
 
-- **In CI**, by the `verify-signed-commits` workflow, which fails a pull request if
+- **In CI**, by the `ci-global-commits-signed` workflow, which fails a pull request if
   GitHub reports any of its commits as unverified. That check is required on `main`.
 
 Run the checks on demand with:

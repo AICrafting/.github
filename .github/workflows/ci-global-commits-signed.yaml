@@ -9,7 +9,7 @@
 #
 # Make this check required on `main` in the branch-protection settings so a
 # merge cannot happen while it is failing.
-name: verify-signed-commits
+name: ci-global-commits-signed
 on:
   workflow_dispatch:
 
