@@ -1,12 +1,9 @@
-# AI Crafting
+# .github
 
-AI Crafting builds tooling for AI coding harnesses such as Claude Code and Codex: skills, plugins, and the workflow glue that lets them work real projects reliably.
+This is AI Crafting's special `.github` repository. Its only job is to house
+[`profile/README.md`](profile/README.md), which GitHub renders on the
+[organization profile page](https://github.com/AICrafting).
 
-## Main project
-
-- **[FlightDirector](https://github.com/AICrafting/FlightDirector)** — skills and plugins for AI harnesses. Website: [flightdirector.build](https://flightdirector.build/)
-
-## Maintainers
-
-- Dave Wood — [@DaveWoodCom](https://github.com/DaveWoodCom)
-- Aaron Wood — [@SilicaGel](https://github.com/SilicaGel)
+Edit `profile/README.md` to change what visitors see there. Product code lives in
+the organization's other repositories, starting with
+[FlightDirector](https://github.com/AICrafting/FlightDirector).
