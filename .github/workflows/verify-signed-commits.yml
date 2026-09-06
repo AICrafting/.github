@@ -1,0 +1,56 @@
+---
+# Fails a pull request when any of its commits is not verified by GitHub.
+#
+# Uses GitHub's own commit verification (keys uploaded to each author's
+# account, plus GitHub's web-flow key for UI-made merge commits) rather than
+# running `git verify-commit` in CI, which would need every signer's key in
+# the runner's keyring. Locally, the same rule is enforced by
+# scripts/checks/verifyGitLogs.sh via the pre-push hook.
+#
+# Make this check required on `main` in the branch-protection settings so a
+# merge cannot happen while it is failing.
+name: verify-signed-commits
+on:
+  workflow_dispatch:
+
+  pull_request: {}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  verify:
+    name: all commits verified
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check every commit in the pull request
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          fail=0
+          total=0
+          while IFS=$'\t' read -r sha verified reason subject; do
+            total=$((total + 1))
+            if [ "$verified" = "true" ]; then
+              printf '  ✓ %s [%s] %s\n' "${sha:0:7}" "$reason" "$subject"
+            else
+              printf '  ✗ %s [%s] %s\n' "${sha:0:7}" "$reason" "$subject"
+              fail=$((fail + 1))
+            fi
+          done < <(gh api --paginate "repos/${REPO}/pulls/${PR}/commits" \
+            --jq '.[] | [.sha, (.commit.verification.verified|tostring), .commit.verification.reason, (.commit.message|split("\n")[0])] | @tsv')
+          echo
+          if [ "$fail" -gt 0 ]; then
+            echo "::error::${fail} of ${total} commit(s) in this pull request are not verified."
+            exit 1
+          fi
+          echo "All ${total} commit(s) are verified."
+
+      - name: Nothing to verify outside a pull request
+        if: github.event_name != 'pull_request'
+        run: echo "Manual run — this check only inspects pull request commits."
