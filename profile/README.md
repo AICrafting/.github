@@ -4,7 +4,7 @@ AI Crafting builds tooling for AI coding harnesses such as Claude Code and Codex
 
 ## Main project
 
-- **[FlightDirector](https://github.com/AICrafting/FlightDirector)** — skills and plugins for AI harnesses. Website: [flightdirector.build](https://flightdirector.build/)
+- **[FlightDirector](https://github.com/AICrafting/FlightDirector)** — skills and plugins for AI harnesses.
 
 ## Maintainers
 
